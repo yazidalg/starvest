@@ -14,3 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+# Monolog Member Team
+1. Yazid Al Ghozali
+2. Aaron Joseph Karel Daimbani
+3. Puri Lalita Anagatha
+4. Syahreza Adnan Al Azhar
+
