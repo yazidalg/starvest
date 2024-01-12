@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "720610291419",
+    "project_id": "starvest-7296f",
+    "storage_bucket": "starvest-7296f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720610291419:android:17af62ea5cc801689be6fe",
+        "android_client_info": {
+          "package_name": "com.example.starvest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720610291419-93evvga7jt8eg4mjbbf48ubtfm02q961.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.starvest",
+            "certificate_hash": "bb0f53bd53173a57494fce52c62a28a9caf7727f"
+          }
+        },
+        {
+          "client_id": "720610291419-9p4gdi67ss5ua0upvmr3p4l5q79j5qu3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7sNYoLR5PLxxwN-vqPM4TGZ-C85LZPSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720610291419-9p4gdi67ss5ua0upvmr3p4l5q79j5qu3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "720610291419-l0qatpotl7mgp293t3corgd7u6u54oiq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.starvest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

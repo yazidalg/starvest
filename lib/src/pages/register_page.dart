@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:starvest/src/components/button_component.dart';
 import 'package:starvest/src/components/field_component.dart';
+import 'package:starvest/src/controllers/auth_controller.dart';
+import 'package:starvest/src/helpers/validation.dart';
+import 'package:starvest/src/pages/home_page.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AuthController authController = AuthController();
     return Scaffold(
       body: Card(
         margin: const EdgeInsets.fromLTRB(16, 67, 16, 67),
@@ -41,56 +46,80 @@ class RegisterPage extends StatelessWidget {
                     ),
                     Container(
                       alignment: Alignment.topLeft,
-                      child: Column(children: [
-                        const Text("Registration"),
-                        FieldComponent(
-                          icon: Icons.person_2_outlined,
-                          hint: "Name",
-                          controllerText: TextEditingController(text: ''),
-                        ),
-                        FieldComponent(
-                          icon: Icons.email_outlined,
-                          hint: "Email",
-                          controllerText: TextEditingController(text: ''),
-                        ),
-                        FieldComponent(
-                          icon: Icons.lock_outline_rounded,
-                          hint: "Password",
-                          controllerText: TextEditingController(text: ''),
-                        ),
-                        FieldComponent(
-                          icon: Icons.lock_outline_rounded,
-                          hint: "Confirm Password",
-                          controllerText: TextEditingController(text: ''),
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: false,
-                              onChanged: (value) {},
-                            ),
-                            const Text("I agree with terms and condition"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: false,
-                              onChanged: (value) {},
-                            ),
-                            const Text("Remember Me"),
-                          ],
-                        ),
-                        ButtonComponent(
-                          title: "Register",
-                          onTap: () {},
-                        ),
-                        const Text("OR"),
-                        ButtonComponent(
-                          title: "Continue with Google",
-                          onTap: () {},
-                        ),
-                      ]),
+                      child: Form(
+                        key: authController.formKey,
+                        child: Column(children: [
+                          const Text("Registration"),
+                          FieldComponent(
+                            icon: Icons.person_2_outlined,
+                            hint: "Name",
+                            controllerText: authController.nameController,
+                            obsecureText: false,
+                            validator: (value) =>
+                                Validator().usernameValidator(value)!,
+                          ),
+                          FieldComponent(
+                            icon: Icons.email_outlined,
+                            hint: "Email",
+                            controllerText: authController.emailController,
+                            obsecureText: false,
+                            validator: (value) =>
+                                Validator().emailValidator(value)!,
+                          ),
+                          FieldComponent(
+                            icon: Icons.lock_outline_rounded,
+                            hint: "Password",
+                            controllerText: authController.passwordController,
+                            obsecureText: true,
+                            validator: (value) =>
+                                Validator().passwordValidator(value)!,
+                          ),
+                          FieldComponent(
+                            icon: Icons.lock_outline_rounded,
+                            hint: "Confirm Password",
+                            controllerText: authController.confirmController,
+                            obsecureText: true,
+                            validator: (value) =>
+                                Validator().passwordValidator(value)!,
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: false,
+                                onChanged: (value) {},
+                              ),
+                              const Text("I agree with terms and condition"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: false,
+                                onChanged: (value) {},
+                              ),
+                              const Text("Remember Me"),
+                            ],
+                          ),
+                          ButtonComponent(
+                            title: "Register",
+                            onTap: () => authController
+                                .register(
+                                  authController.emailController.text,
+                                  authController.passwordController.text,
+                                )
+                                .whenComplete(() => Get.off(
+                                    HomePage(user: authController.user!))),
+                          ),
+                          const Text("OR"),
+                          ButtonComponent(
+                            title: "Continue with Google",
+                            onTap: () => authController
+                                .googleSignIn()
+                                .whenComplete(() => Get.off(
+                                    HomePage(user: authController.user!))),
+                          ),
+                        ]),
+                      ),
                     ),
                     const Text("Already have an account?"),
                   ]),

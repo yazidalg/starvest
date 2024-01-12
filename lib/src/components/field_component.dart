@@ -6,11 +6,15 @@ class FieldComponent extends StatelessWidget {
     required this.icon,
     required this.hint,
     required this.controllerText,
+    required this.validator,
+    required this.obsecureText,
   });
 
   final IconData icon;
   final String hint;
   final TextEditingController controllerText;
+  final String Function(String?)? validator;
+  final bool obsecureText;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +23,10 @@ class FieldComponent extends StatelessWidget {
         left: 16,
         right: 16,
       ),
-      child: TextField(
+      child: TextFormField(
         controller: controllerText,
+        validator: validator,
+        obscureText: obsecureText,
         decoration: InputDecoration(
           prefixIcon: Icon(icon),
           hintText: hint,

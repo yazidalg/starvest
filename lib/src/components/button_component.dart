@@ -12,19 +12,22 @@ class ButtonComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onTap,
-      child: Text(title),
-      style: ButtonStyle(
-        minimumSize: MaterialStatePropertyAll(
-          Size(double.infinity, 35),
+    return Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25),
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: const ButtonStyle(
+          minimumSize: MaterialStatePropertyAll(
+            Size(double.infinity, 35),
+          ),
+          foregroundColor: MaterialStatePropertyAll(
+            Colors.white,
+          ),
+          backgroundColor: MaterialStatePropertyAll(
+            Color(0xffFF6000),
+          ),
         ),
-        foregroundColor: MaterialStatePropertyAll(
-          Colors.white,
-        ),
-        backgroundColor: MaterialStatePropertyAll(
-          Color(0xffFF6000),
-        ),
+        child: Text(title),
       ),
     );
   }
