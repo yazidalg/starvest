@@ -1,11 +1,12 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:starvest/src/components/button_component.dart';
 import 'package:starvest/src/components/field_component.dart';
 import 'package:starvest/src/helpers/validation.dart';
-import 'package:starvest/src/pages/login_page.dart';
+import 'package:starvest/src/pages/authentication/widget/bottom_auth_widget.dart';
+
+import 'login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -14,26 +15,10 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF5F5FA),
-      bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height * 0.090,
-        alignment: Alignment.center,
-        child: RichText(
-          text: TextSpan(
-            style: Theme.of(context).textTheme.labelSmall,
-            text: "Already have an account? ",
-            children: [
-              TextSpan(
-                text: "Sign In",
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium!
-                    .copyWith(color: const Color(0xffF98930)),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () => Get.off(const LoginPage()),
-              ),
-            ],
-          ),
-        ),
+      bottomNavigationBar: BottomAuthWidget(
+        title: "Already have an account? ",
+        titleButton: "Sign In",
+        page: () => Get.off(const LoginPage()),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

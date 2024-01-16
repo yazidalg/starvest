@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:starvest/firebase_options.dart';
-import 'package:starvest/src/pages/register_page.dart';
+
+import 'src/pages/authentication/register_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +62,11 @@ class MyApp extends StatelessWidget {
             fontSize: 14,
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.w500,
+          ),
+          bodyLarge: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.w600,
           ),
           labelMedium: GoogleFonts.montserrat(
             fontSize: 12,
