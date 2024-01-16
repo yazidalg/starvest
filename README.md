@@ -22,8 +22,8 @@ samples, guidance on mobile development, and a full API reference.
 4. Syahreza Adnan Al Azhar
 
 # Main Functional Requirement
-FR 1 Register & Log In 
-FR 2 Laman Market Startup
-FR 3 Jual Beli Saham Startup
-FR 4 History
-FR 5 E Wallet
+- FR 1 Register & Log In 
+- FR 2 Laman Market Startup
+- FR 3 Jual Beli Saham Startup
+- FR 4 History
+- FR 5 E Wallet
