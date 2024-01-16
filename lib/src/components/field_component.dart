@@ -30,6 +30,10 @@ class _FieldComponentState extends State<FieldComponent> {
       validator: widget.validator,
       obscureText: widget.obsecureText && !_isVisible,
       decoration: InputDecoration(
+        errorStyle: Theme.of(context)
+            .textTheme
+            .displaySmall
+            ?.copyWith(color: Colors.red),
         contentPadding: EdgeInsets.zero,
         filled: true,
         fillColor: const Color(0xffE9E9E9),

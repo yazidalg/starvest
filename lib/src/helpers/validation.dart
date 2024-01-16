@@ -4,12 +4,12 @@ class Validator {
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = RegExp(pattern);
-    if (!regExp.hasMatch(value!)) {
-      return "Ketik email yang benar";
+    if (value!.isEmpty) {
+      return "Email tidak boleh kosong";
     } else if (value.length < 6) {
       return "Email harus lebih dari 6 angka";
-    } else if (value.isEmpty) {
-      return "Email tidak boleh kosong";
+    } else if (!regExp.hasMatch(value)) {
+      return "Ketik email yang benar";
     } else {
       return null;
     }
@@ -46,5 +46,14 @@ class Validator {
     } else {
       return null;
     }
+  }
+
+  String? passwordConfirmValidator(String value, String passwordValue) {
+    if (value.isEmpty) {
+      return "Konfirmasi password anda";
+    } else if (value != passwordValue) {
+      return "Password tidak cocok";
+    }
+    return null;
   }
 }

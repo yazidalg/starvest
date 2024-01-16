@@ -4,12 +4,13 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthController with ChangeNotifier {
+class AuthProvider with ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  final loginKey = GlobalKey<FormState>();
+  final regisKey = GlobalKey<FormState>();
   User? user;
 
   Future<User?> googleSignIn() async {
@@ -32,6 +33,7 @@ class AuthController with ChangeNotifier {
         final UserCredential userCred =
             await firebaseAuth.signInWithCredential(credential);
         user = userCred.user;
+        notifyListeners();
       } on FirebaseAuthException catch (e) {
         if (e.code == "account-exists-with-different-credential") {
           Get.snackbar("Error", e.message!);
@@ -45,7 +47,7 @@ class AuthController with ChangeNotifier {
     return user;
   }
 
-  Future<User?> register(String email, String password) async {
+  Future<User?> signUp(String email, String password) async {
     try {
       UserCredential credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -53,10 +55,19 @@ class AuthController with ChangeNotifier {
         password: password,
       );
       user = credential.user;
+      notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == "account-exists-with-different-credential") {
-        Get.snackbar("Error", e.message!);
+        Get.snackbar(
+          "Error",
+          "The account already exists with a different credential",
+        );
       } else if (e.code == "invalid-credential") {
+        Get.snackbar(
+          "Error",
+          "Email or password invalid",
+        );
+      } else {
         Get.snackbar("Error", e.message!);
       }
     } catch (e) {
@@ -70,11 +81,28 @@ class AuthController with ChangeNotifier {
       UserCredential credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       user = credential.user;
+      notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == "account-exists-with-different-credential") {
-        Get.snackbar("Error", e.message!);
+        Get.snackbar(
+          "Error",
+          "The account already exists with a different credential",
+        );
       } else if (e.code == "invalid-credential") {
-        Get.snackbar("Error", e.message!);
+        Get.snackbar(
+          "Error",
+          "Email or password invalid",
+        );
+      } else if (e.code == "user-not-found") {
+        Get.snackbar(
+          "Error",
+          "User not registered. Please sign up first",
+        );
+      } else {
+        Get.snackbar(
+          "Error",
+          e.message!,
+        );
       }
     } catch (e) {
       throw Exception(e);
@@ -88,6 +116,7 @@ class AuthController with ChangeNotifier {
     try {
       await googleSignIn.signOut();
       await FirebaseAuth.instance.signOut();
+      notifyListeners();
     } catch (e) {
       throw Exception(e);
     }
