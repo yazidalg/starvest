@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:starvest/firebase_options.dart';
 import 'package:starvest/src/pages/register_page.dart';
 
@@ -35,6 +36,38 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        textTheme: TextTheme(
+          titleLarge: GoogleFonts.montserrat(
+            fontSize: 20,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.w600,
+          ),
+          titleMedium: GoogleFonts.montserrat(
+            fontSize: 17,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.w700,
+          ),
+          titleSmall: GoogleFonts.montserrat(
+            fontSize: 15,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.w700,
+          ),
+          labelSmall: GoogleFonts.montserrat(
+            fontSize: 12,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.w500,
+          ),
+          bodySmall: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.w500,
+          ),
+          labelMedium: GoogleFonts.montserrat(
+            fontSize: 12,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         useMaterial3: true,
       ),
       home: const RegisterPage(),
