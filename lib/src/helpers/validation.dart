@@ -10,9 +10,8 @@ class Validator {
       return "Email harus lebih dari 6 angka";
     } else if (!regExp.hasMatch(value)) {
       return "Ketik email yang benar";
-    } else {
-      return null;
     }
+    return null;
   }
 
   // password validation function
@@ -21,9 +20,8 @@ class Validator {
       return "Password tidak boleh kosong";
     } else if (value.length < 6) {
       return "Password harus lebih dari 6 huruf";
-    } else {
-      return null;
     }
+    return null;
   }
 
   // password validation function
@@ -32,9 +30,8 @@ class Validator {
       return "Nama Lengkap tidak boleh kosong";
     } else if (value.length < 5) {
       return "Nama Lengkap harus lebih dari 5 huruf";
-    } else {
-      return null;
     }
+    return null;
   }
 
   // password validation function
@@ -43,9 +40,8 @@ class Validator {
       return "Nomor Telepon tidak boleh kosong";
     } else if (value.length < 12) {
       return "Nomor Telepon lebih dari atau 12 huruf";
-    } else {
-      return null;
     }
+    return null;
   }
 
   String? passwordConfirmValidator(String value, String passwordValue) {

@@ -76,38 +76,33 @@ class AuthProvider with ChangeNotifier {
     return user;
   }
 
-  Future<User?> signIn(String email, String password) async {
+  Future<void> signIn(String email, String password) async {
     try {
       UserCredential credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       user = credential.user;
-      notifyListeners();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "account-exists-with-different-credential") {
+    } catch (e) {
+      if (e is FirebaseAuthException &&
+          e.code == "account-exists-with-different-credential") {
         Get.snackbar(
           "Error",
           "The account already exists with a different credential",
         );
-      } else if (e.code == "invalid-credential") {
-        Get.snackbar(
-          "Error",
-          "Email or password invalid",
-        );
-      } else if (e.code == "user-not-found") {
+      } else if (e is FirebaseAuthException && e.code == "user-not-found") {
         Get.snackbar(
           "Error",
           "User not registered. Please sign up first",
         );
-      } else {
+      } else if (e is FirebaseAuthException && e.code == "invalid-credential") {
         Get.snackbar(
           "Error",
           e.message!,
         );
+      } else {
+        Get.snackbar("Error", e.toString());
       }
-    } catch (e) {
-      throw Exception(e);
     }
-    return user;
+    notifyListeners();
   }
 
   Future<void> signOut() async {

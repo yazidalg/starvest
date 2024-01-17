@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:starvest/src/components/button_component.dart';
 import 'package:starvest/src/components/field_component.dart';
 import 'package:starvest/src/controllers/auth_controller.dart';
-import 'package:starvest/src/helpers/validation.dart';
 import 'package:starvest/src/pages/authentication/register_page.dart';
 import 'package:starvest/src/pages/authentication/widget/bottom_auth_widget.dart';
 
@@ -57,7 +56,6 @@ class LoginPage extends StatelessWidget {
                     icon: Icons.email,
                     hint: "Email",
                     controllerText: authProvider.emailController,
-                    validator: (val) => Validator().emailValidator(val)!,
                     obsecureText: false,
                   ),
                   const SizedBox(height: 20),
@@ -65,7 +63,6 @@ class LoginPage extends StatelessWidget {
                     icon: Icons.lock,
                     hint: "Password",
                     controllerText: authProvider.passwordController,
-                    validator: (val) => Validator().passwordValidator(val)!,
                     obsecureText: true,
                   ),
                   Row(
@@ -102,12 +99,13 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 45),
               ButtonComponent(
                 title: "Sign In",
-                onTap: () => authProvider.loginKey.currentState!.validate()
-                    ? authProvider.signIn(
-                        authProvider.emailController.text,
-                        authProvider.passwordController.text,
-                      )
-                    : null,
+                onTap: () =>
+                    authProvider.loginKey.currentState?.validate() ?? false
+                        ? authProvider.signIn(
+                            authProvider.emailController.text.trim(),
+                            authProvider.passwordController.text.trim(),
+                          )
+                        : null,
                 radius: 12,
                 color: 0xffF98930,
               ),

@@ -6,14 +6,14 @@ class FieldComponent extends StatefulWidget {
     required this.icon,
     required this.hint,
     required this.controllerText,
-    required this.validator,
+    // required this.validator,
     required this.obsecureText,
   });
 
   final IconData icon;
   final String hint;
   final TextEditingController controllerText;
-  final String Function(String?)? validator;
+  // final String Function(String) validator;
   final bool obsecureText;
 
   @override
@@ -27,7 +27,7 @@ class _FieldComponentState extends State<FieldComponent> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controllerText,
-      validator: widget.validator,
+      // validator: widget.validator,
       obscureText: widget.obsecureText && !_isVisible,
       decoration: InputDecoration(
         errorStyle: Theme.of(context)
