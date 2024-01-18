@@ -27,3 +27,8 @@ samples, guidance on mobile development, and a full API reference.
 - FR 3 Jual Beli Saham Startup
 - FR 4 History
 - FR 5 E Wallet
+
+# How to run
+1. Clone this project
+2. Run `flutter pub get`
+3. Run `flutter run`
