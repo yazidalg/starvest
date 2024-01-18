@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:starvest/src/components/button_component.dart';
 import 'package:starvest/src/components/field_component.dart';
 import 'package:starvest/src/controllers/auth_controller.dart';
-import 'package:starvest/src/helpers/validation.dart';
 import 'package:starvest/src/pages/authentication/widget/bottom_auth_widget.dart';
 
 import 'login_page.dart';

@@ -6,7 +6,7 @@ import 'package:starvest/firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:starvest/src/controllers/auth_controller.dart';
 import 'package:starvest/src/pages/authentication/login_page.dart';
-import 'package:starvest/src/pages/home_page.dart';
+import 'package:starvest/src/pages/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AuthProvider(),
+      create: (create) => AuthProvider(),
       child: GetMaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
