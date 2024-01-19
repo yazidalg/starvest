@@ -16,12 +16,13 @@ class Content extends StatelessWidget {
   final int index;
   final String title;
   final String price;
-  final String percent;
+  final num percent;
   final String image;
-  final NavigationController controller;
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
+    Color iconColor = percent < 0 ? Colors.red : Colors.green;
     return Obx(
       () => AnimatedOpacity(
         opacity: controller.selectedIndex.value == index ? 1.0 : 0.0,
@@ -45,16 +46,18 @@ class Content extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Icon(
-                        Icons.keyboard_double_arrow_up_outlined,
-                        color: Colors.green,
+                      Icon(
+                        percent < 0
+                            ? Icons.keyboard_double_arrow_down
+                            : Icons.keyboard_double_arrow_up_outlined,
+                        color: iconColor,
                       ),
                       Text(
                         "$percent%",
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!
-                            .copyWith(color: Colors.green),
+                            .copyWith(color: iconColor),
                       ),
                     ],
                   ),

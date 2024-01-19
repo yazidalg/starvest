@@ -12,7 +12,7 @@ class NavItem extends StatelessWidget {
 
   final int index;
   final String text;
-  final NavigationController controller;
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {

@@ -24,9 +24,7 @@ class BalanceRepository {
 
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
-        Balancer newBalancer = Balancer.fromJson(response.data);
-        balancer = newBalancer;
-        return balancer;
+        return balancer = Balancer.fromJson(response.data);
       }
       return balancer;
     } on DioException catch (e) {

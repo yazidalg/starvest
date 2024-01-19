@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
+    final controller = Get.put(HomeController());
     return Scaffold(
       backgroundColor: const Color(0xffF5F5FA),
       appBar: AppBar(
@@ -99,10 +99,11 @@ class HomePage extends StatelessWidget {
                     return const Text("Failed to fetch data");
                   } else {
                     return ListView.builder(
+                      itemCount: trend.length,
                       itemBuilder: (context, index) => Content(
                         index: 0,
                         title: trend[index].company?.name ?? "Error",
-                        percent: trend[index].percent.toString(),
+                        percent: trend[index].percent ?? 0,
                         price: trend[index].close.toString(),
                         image: trend[index].company?.logo ?? "Error",
                         controller: controller,
@@ -118,26 +119,43 @@ class HomePage extends StatelessWidget {
                     return const Text("Failed to fetch data");
                   } else {
                     return ListView.builder(
+                      scrollDirection: Axis.vertical,
                       itemCount: topGainer.length,
                       itemBuilder: (context, index) => Content(
                         index: 1,
                         title: topGainer[index].company?.name ?? "Error",
-                        percent: topGainer[index].percent.toString(),
-                        price: topGainer[index].change.toString(),
+                        percent: topGainer[index].percent ?? 0,
+                        price: topGainer[index].close.toString(),
                         image: topGainer[index].company?.logo ?? "Error",
                         controller: controller,
                       ),
                     );
                   }
                 }),
-                Content(
-                  index: 2,
-                  image: "",
-                  title: "Data",
-                  percent: '12',
-                  price: '12',
-                  controller: controller,
-                ),
+                Obx(() {
+                  var topLoser = controller.topLoser.value.data?.results;
+                  if (controller.isLoading.value) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (topLoser == null) {
+                    return const Center(
+                      child: Text("Failed to fetch data"),
+                    );
+                  } else {
+                    return ListView.builder(
+                      itemCount: topLoser.length,
+                      itemBuilder: (context, index) => Content(
+                        index: 2,
+                        title: topLoser[index].company?.name ?? "Error",
+                        percent: topLoser[index].percent ?? 0,
+                        price: topLoser[index].close.toString(),
+                        image: topLoser[index].company?.logo ?? "Error",
+                        controller: controller,
+                      ),
+                    );
+                  }
+                })
               ],
             ),
           ),
