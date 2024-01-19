@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:starvest/src/controllers/navigation_controller.dart';
 import 'package:starvest/src/pages/home/widget/button_nav.dart';
+import 'package:starvest/src/util/rupiah.dart';
 
+import '../../util/constant.dart';
 import 'widget/content_nav.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,44 +21,41 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 1,
         title: ListTile(
-          contentPadding: EdgeInsets.zero,
-          trailing: ClipOval(
-            child: Image.network(
-              width: 40,
-              height: 40,
-              errorBuilder: (context, error, stackTrace) => const Icon(
-                Icons.error,
-                color: Colors.red,
+            contentPadding: EdgeInsets.zero,
+            trailing: ClipOval(
+              child: Image.network(
+                width: 40,
+                height: 40,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                ),
+                user.photoURL!,
               ),
-              user.photoURL!,
             ),
-          ),
-          title: Text(
-            "Total Balance",
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(color: const Color(0xff828282)),
-          ),
-          // subtitle: Consumer<BalanceProvider>(
-          //   builder: (context, value, chil) =>
-          //       value.balanceModel.balance == null
-          //           ? Text(
-          //               "0 USD",
-          //               style: Theme.of(context)
-          //                   .textTheme
-          //                   .bodyLarge
-          //                   ?.copyWith(color: colorPrimary),
-          //             )
-          //           : Text(
-          //               "${value.balanceModel.balance} USD",
-          //               style: Theme.of(context)
-          //                   .textTheme
-          //                   .bodyLarge
-          //                   ?.copyWith(color: colorPrimary),
-          //             ),
-          // ),
-        ),
+            title: Text(
+              "Total Balance",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: const Color(0xff828282)),
+            ),
+            subtitle: Obx(() {
+              var balance = controller.balancer.value.balance;
+              if (controller.isLoading.value) {
+                return const Text("Load balance");
+              } else if (controller.balancer.value.balance == null) {
+                return const Text("Failed to catch balance");
+              } else {
+                return Text(
+                  "${RupiahUtils.beRupiah(balance ?? 0)} USD",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: colorPrimary),
+                );
+              }
+            })),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -88,57 +87,48 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          TextButton(
-              onPressed: () {
-                controller.getTopGainer();
-                controller.getTrending();
-              },
-              child: Text("test")),
           Expanded(
             flex: 1,
             child: Stack(
               children: [
                 Obx(() {
                   var trend = controller.trendingStock.value.data?.results;
-                  return controller.isLoading.value
-                      ? const Center(child: CircularProgressIndicator())
-                      : SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Column(
-                            children: trend!
-                                .map(
-                                  (data) => Content(
-                                    index: 0,
-                                    image: data.company!.logo!,
-                                    title: "Da",
-                                    percent: '12',
-                                    price: '12',
-                                    controller: controller,
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        );
+                  if (controller.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (trend == null) {
+                    return const Text("Failed to fetch data");
+                  } else {
+                    return ListView.builder(
+                      itemBuilder: (context, index) => Content(
+                        index: 0,
+                        title: trend[index].company?.name ?? "Error",
+                        percent: trend[index].percent.toString(),
+                        price: trend[index].close.toString(),
+                        image: trend[index].company?.logo ?? "Error",
+                        controller: controller,
+                      ),
+                    );
+                  }
                 }),
                 Obx(() {
                   var topGainer = controller.topGainer.value.data?.results;
-                  return controller.isLoading.value
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : SingleChildScrollView(
-                          child: Column(
-                              children: topGainer!
-                                  .map((data) => Content(
-                                        index: 1,
-                                        image: data.company!.logo!,
-                                        title: data.company!.name!,
-                                        percent: data.percent.toString(),
-                                        price: data.close.toString(),
-                                        controller: controller,
-                                      ))
-                                  .toList()),
-                        );
+                  if (controller.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (topGainer == null) {
+                    return const Text("Failed to fetch data");
+                  } else {
+                    return ListView.builder(
+                      itemCount: topGainer.length,
+                      itemBuilder: (context, index) => Content(
+                        index: 1,
+                        title: topGainer[index].company?.name ?? "Error",
+                        percent: topGainer[index].percent.toString(),
+                        price: topGainer[index].change.toString(),
+                        image: topGainer[index].company?.logo ?? "Error",
+                        controller: controller,
+                      ),
+                    );
+                  }
                 }),
                 Content(
                   index: 2,
