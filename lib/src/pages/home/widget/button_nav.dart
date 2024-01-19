@@ -8,25 +8,29 @@ class NavItem extends StatelessWidget {
     required this.index,
     required this.text,
     required this.controller,
+    required this.firstColor,
+    required this.secondColor,
   });
 
   final int index;
   final String text;
   final HomeController controller;
+  final Color firstColor;
+  final Color secondColor;
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => ElevatedButton(
         style: ButtonStyle(
-          minimumSize: const MaterialStatePropertyAll(
-            Size(90, 30),
+          shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+          minimumSize: MaterialStatePropertyAll(
+            Size(text.length.toDouble(), 30),
           ),
           elevation: const MaterialStatePropertyAll(0),
           backgroundColor: MaterialStatePropertyAll(
-            controller.selectedIndex.value == index
-                ? const Color(0xffFED5B5)
-                : const Color(0xffF5F5FA),
+            controller.selectedIndex.value == index ? firstColor : secondColor,
           ),
           foregroundColor: MaterialStatePropertyAll(
             controller.selectedIndex.value == index
