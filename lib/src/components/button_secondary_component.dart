@@ -27,7 +27,7 @@ class SecondaryButtonComponent extends StatelessWidget {
         ),
         elevation: const MaterialStatePropertyAll(0),
         backgroundColor: MaterialStatePropertyAll(color),
-        foregroundColor: MaterialStatePropertyAll(Colors.black),
+        foregroundColor: const MaterialStatePropertyAll(Colors.black),
       ),
       onPressed: onTap,
       child: Text(
