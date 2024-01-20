@@ -1,63 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:starvest/src/controllers/navigation_controller.dart';
 import 'package:starvest/src/pages/home/widget/button_nav.dart';
 import 'package:starvest/src/pages/home/widget/startup_recommendation.dart';
-import 'package:starvest/src/util/rupiah.dart';
-
-import '../../util/constant.dart';
 import 'widget/chart.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.user});
-
-  final User user;
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
     return Scaffold(
       backgroundColor: const Color(0xffF5F5FA),
-      appBar: AppBar(
-        elevation: 1,
-        title: ListTile(
-            contentPadding: EdgeInsets.zero,
-            trailing: ClipOval(
-              child: Image.network(
-                width: 40,
-                height: 40,
-                errorBuilder: (context, error, stackTrace) => const Icon(
-                  Icons.error,
-                  color: Colors.red,
-                ),
-                user.photoURL!,
-              ),
-            ),
-            title: Text(
-              "Total Balance",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(color: const Color(0xff828282)),
-            ),
-            subtitle: Obx(() {
-              var balance = controller.balancer.value.balance;
-              if (controller.isLoading.value) {
-                return const Text("Load balance");
-              } else if (controller.balancer.value.balance == null) {
-                return const Text("Failed to catch balance");
-              } else {
-                return Text(
-                  "${RupiahUtils.beRupiah(balance ?? 0)} USD",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(color: colorPrimary),
-                );
-              }
-            })),
-      ),
       body: Container(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
@@ -67,12 +23,13 @@ class HomePage extends StatelessWidget {
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  // Container(
-                  //   child: Image.asset(
-                  //     "assets/background/home_background.png",
-                  //     fit: BoxFit.fill,
-                  //   ),
-                  // ),
+                  Container(
+                    child: SvgPicture.asset(
+                      "assets/background/Intersect.svg",
+                      fit: BoxFit.fill,
+                      width: MediaQuery.of(context).size.width / 1,
+                    ),
+                  ),
                   Column(
                     children: [
                       Chart(),

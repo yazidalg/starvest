@@ -6,7 +6,7 @@ import 'package:starvest/firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:starvest/src/controllers/auth_controller.dart';
 import 'package:starvest/src/pages/authentication/login_page.dart';
-import 'package:starvest/src/pages/home/home_page.dart';
+import 'package:starvest/src/pages/bottom_navigation_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
         home: Consumer<AuthProvider>(
           builder: (context, value, child) => value.user == null
               ? const LoginPage()
-              : HomePage(user: value.user!),
+              : BottomNavigationPage(user: value.user),
         ),
       ),
     );
