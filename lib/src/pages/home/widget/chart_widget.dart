@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class Chart extends StatelessWidget {
-  const Chart({super.key});
+class ChartWidget extends StatelessWidget {
+  const ChartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +16,7 @@ class Chart extends StatelessWidget {
       child: Column(children: [
         Column(
           children: [
+            const SizedBox(height: 16),
             Text(
               "Total Stock Value",
               style: Theme.of(context).textTheme.bodySmall,
@@ -68,7 +69,7 @@ class Chart extends StatelessWidget {
                   ),
                 ]),
           ),
-        )
+        ),
       ]),
     );
   }

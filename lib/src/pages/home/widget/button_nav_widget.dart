@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:starvest/src/controllers/navigation_controller.dart';
 
-class NavItem extends StatelessWidget {
-  const NavItem({
+class NavItemWidget extends StatelessWidget {
+  const NavItemWidget({
     super.key,
     required this.index,
     required this.text,

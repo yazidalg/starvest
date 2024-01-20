@@ -42,7 +42,7 @@ class AppBarComponent extends StatelessWidget {
             return const Text("Failed to catch balance");
           } else {
             return Text(
-              "${RupiahUtils.beRupiah(balance ?? 0)} USD",
+              RupiahUtils.beRupiah(balance ?? 0),
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
